@@ -1,0 +1,6 @@
+[submodule "zundamon-speech-api"]
+	path = zundamon-speech-api
+	url = https://github.com/Ruhi03/zundamon-speech-api.git
+[submodule "zundamon-speech-bot"]
+	path = zundamon-speech-bot
+	url = https://github.com/Ruhi03/zundamon-speech-bot.git
