@@ -5,13 +5,9 @@
     
     container_name: zundamon-api-server
     runtime: nvidia
+    
     volumes:
       - ./zundamon-speech-api:/api
-
-    command: sh -c "download_models.sh && python main.py"
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
     deploy:
       resources:
@@ -21,8 +17,15 @@
               count: 1
               capabilities: [gpu]
 
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+
+    stdin_open: true
+    tty: true
     restart: always
     shm_size: '8g'
+    # command: sh -c "download_models.sh && python main.py"
 
   zundamon-bot:
     build:
@@ -43,6 +46,8 @@
       - API_BASE=http://zundamon-api:8000
       - DISCORD_TOKEN=${DISCORD_TOKEN}
 
-    command: npm run dev
+    stdin_open: true
+    tty: true
     restart: always
-    shm_size: '4g' 
+    shm_size: '256mb' 
+    # command: npm run dev
